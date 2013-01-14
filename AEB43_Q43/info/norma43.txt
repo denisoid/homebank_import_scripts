@@ -1,0 +1,235 @@
+V1.1 Add 22H Common concepts and 33J currency iso codes. Add File examples
+V1.0 Initial release
+
+Q43 file format overview
+The format can carry information about several accounts
+1 record per line.
+Lines with 80 characters maximum.
+EBDIC enconding
+AFAIK records are optional but with an stablished order.
+Record types beginning with:
+00: File HEADER (AFAIK optional)
+11: Header Record
+22: Bank transaction
+23: Comment about the transaction
+33: Final acount register
+88: EOF (End Of File) register.
+
+File scheme with 3 accounts:
+11XX
+22XX
+23XX
+...     This is only a visual iterator to repeat 22 and 23 registers
+...
+33XX
+------- This is only a visual separator not used in file
+11XX
+22XX
+23XX    This is only a visual iterator to repeat 22 and 23 registers
+...
+...
+33XX
+------- This is only a visual separator not used in file
+11XX
+22XX
+23XX
+...     This is only a visual iterator to repeat 22 and 23 registers
+...
+33XX
+88XX
+
+
+00 Record (File header)
+00AAAABBBBBBCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+A Numeric       Bank code key (4 digits)
+B YYMMDD        Account Date
+C Free          Free
+Example
+000001040901
+
+11 Record (Account header)
+11AAAABBBBCCCCCCCCCCDDDDDDEEEEEEFGGGGGGGGGGGGGGHHHIJJJJJJJJJJJJJJJJJJJJJJJJJJKKK
+A Numeric       Bank code key
+B Numeric       Office branch code key
+C Numeric       Account Number
+D Numeric       Initial Range Date
+E Numeric       Final Range Date
+F Numeric       Sign of the bank account (1 debtor , 2 creditor)
+G Numeric       Initial account balance with 2 decimals at end
+H Numeric       Currency code (978=)
+I Numeric       Report Mode code
+J AlphaNum.     Name of the account owner
+K Numeric       Customer code
+Example
+110001000200000000030409011004302000000000300009782JUAN PEDRO PAREDES CABALLE
+
+22 Record (Main transaction record)
+22AAAABBBBCCCCCCDDDDDDEEFFFGHHHHHHHHHHHHHHIIIIIIIIIIJJJJJJJJJJJJKKKKKKKKKKKKKKKK
+A Numeric       Bank code key or NULL
+B Numeric       Office branch code key
+C Numeric       Transaction Date
+D Numeric       Transaction Value Date
+E Numeric       Common concept
+F Numeric       Bank own concepts
+G Numeric       Note type (1 deb note, 2 credit note)
+H Numeric       Amount ot the note with 2 decimals at end
+I Numeric       Document number
+J Numeric       Reference 1
+K AlphaNum.     Reference 2
+Example
+22    0242060101060101121761000000000049890000000000
+
+23 Record (Transaction comment record)
+23AABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+A Numeric       Data code, each transaction record can carry several comment 
+entries (01 for ther first, 02 the second and so on)
+B AlphaNum.     First comment
+C AlphaNum.     Second Comment
+Example
+2301COMPRA T.C. E.S.CALZADA DE O
+
+33 Record (End of account record)
+33AAAABBBBCCCCCCCCCCDDDDDEEEEEEEEEEEEEEFFFFFGGGGGGGGGGGGGGHIIIIIIIIIIIIIIJJJKKKK
+A Numeric       Bank code key
+B Numeric       Office branch code key
+C Numeric       Account Number
+D Numeric       Number of deb notes
+E Numeric       Total amount of deb
+F Numeric       Number of credit notes
+G Numeric       Total amount of credit
+H Numeric       Final balance code (1 deb, 2 credit)
+I Numeric       Final balance
+J Numeric       Currency Code (978=)
+K Numeric       Free
+Example
+3300010002000000000300099000000000000990009900000000009991200000000000900978
+
+88 Record (End of File record)
+88AAAAAAAAAAAAAAAAAABBBBBCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+A Numeric       Padding with 9
+B Numeric       Number of records withouth self and 00
+C Numeric       Free
+Example
+88999999999999999999004354
+
+--------------------------------------------------------------------------------
+
+22 Record E field common concepts in spanish language
+01 TALONES - REINTEGROS
+02 ABONARÉS - ENTREGAS - INGRESOS
+02 PROMISSORY NOTE - DELIVERIES - REVENUE
+03 DOMICILIADOS - RECIBOS - LETRAS - PAGOS POR SU CTA.
+04 GIROS - TRANSFERENCIAS - TRASPASOS - CHEQUES
+05 AMORTIZACIONES PRÉSTAMOS, CRÉDITOS, ETC.
+06 REMESAS EFECTOS
+07 SUSCRIPCIONES - DIV. PASIVOS - CANJES.
+08 DIV. CUPONES - PRIMA JUNTA - AMORTIZACIONES
+09 OPERACIONES DE BOLSA Y/O COMPRA /VENTA VALORES
+10 CHEQUES GASOLINA
+11 CAJERO AUTOMÁTICO
+12 TARJETAS DE CRÉDITO - TARJETAS DÉBITO
+13 OPERACIONES EXTRANJERO
+14 DEVOLUCIONES E IMPAGADOS
+15 NÓMINAS - SEGUROS SOCIALES
+16 TIMBRES - CORRETAJE - PÓLIZA
+17 INTERESES - COMISIONES  CUSTODIA - GASTOS E IMPUESTOS
+98 ANULACIONES - CORRECCIONES ASIENTO
+99 VARIOS
+
+--------------------------------------------------------------------------------
+File records ends  with CRLF line terminators
+
+File q43 with 1 account
+
+119999139931999138140511100511102000000000103469783R*****-V*****-JUAN FRANCIS   
+22    8818051110051110040062000000000500000000000000000000002143TRF. JUAN FRANCI
+2301TRF. JUAN FRANCISCO R***** V*****                                           
+22    1302051110051110050371000000000422000000000000000000002144RCBO. PRESTAMO42
+2301RCBO. PRESTAMO4268805159                                                    
+3399991399319991381400001000000000422000000100000000050000200000000018146978    
+88999999999999999999000012                                                      
+
+
+File q43 with 2 accounts
+
+11199213099999938140511100511102000000000103469783R*****-V*****-JUAN FRANCIS   
+22    8818051110051110040062000000000500000000000000000000002143TRF. JUAN FRANCI
+2301TRF. JUAN FRANCISCO R***** V*****                                           
+22    1302051110051110050371000000000422000000000000000000002144RCBO. PRESTAMO42
+2301RCBO. PRESTAMO4268805159                                                    
+3319921309999991381400001000000000422000000100000000050000200000000018146978    
+111992130999999055110511100511102000000000006009783R*****-V*****-JUAN FRANCIS   
+22    1302051110051110020012000000000500000000000000000000000082TRASPASO CAIXA P
+2301TRASPASO CAIXA POPULAR                                                      
+22    8818051110051110040061000000000500000000000000000000000083SU ORDEN DE TRAS
+2301SU ORDEN DE TRASPASO                                                        
+3319921309999990551100001000000000500000000100000000050000200000000000600978    
+88999999999999999999000012                                                      
+
+--------------------------------------------------------------------------------
+
+11 H and 33 J fields (Currency table an ISO codes) in spanish language
+Dólar australiano 036
+Dólar canadiense 124
+Corona Danesa 208
+Yen japonés 392
+Dólar neozelandés 554
+Corona noruega 578
+Corona sueca 752
+Franco suizo 756
+Libra esterlina 826
+Dólar USA 840
+Euro 978
+Divisas europeas
+Pesetas ordinarias 230
+Pesetas convertibles 100
+Francos franceses 101
+Marcos alemanes 105
+Francos belgas convertibles 107
+Francos belgas financieros 157
+Florines 108
+Escudos 109
+Liras 113
+Schillings austríacos 114
+Marcos finlandeses 115
+Libras irlandesas 117
+Derechos especiales de giro DEG 180
+Unidad Europea de Cuenta (ECU) 181
+Franco C.F.A. 204
+Dracmas griegos 206
+Dirhams marruecos 205
+Cruceiros 210
+Soles peruanos 211
+Bolívares 212
+Austral argentino 213
+Pesos uruguayos 214
+Pesos mejicanos 218
+Pesos colombianos 217
+Dinares Libia 220
+Ryales Arabia Saudita 221
+Dirhams U.E.A. (Unión Emiratos Árabes) 222
+Riales Irán 223
+Dínares Kuwait 224
+Renmimbi chino 250
+Balboa panameño 251
+Rand sudafricano 252
+Peso chileno 254
+Sucre 255
+Peso boliviano 256
+Colón costarricense 257
+Peso cubano 258
+Dinar argelino 259
+Libra egipcia 260
+Quetzal 261
+Lempira 262
+Gourde 263
+Rupia india 264
+Dinar iraquí 265
+Dinar jordano 266
+Naira 267
+Córdoba 268
+Libra siria 269
+Rublo 270
+Guaraní paraguayo 271
+Ringgit 272
+Rupia paquistaní 273 
