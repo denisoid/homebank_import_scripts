@@ -1,6 +1,0 @@
-ver 0.1. 14.08.2011
-Added:
- - awk script, which process data from Webmoney csv format to Homebank's csv
- - awk script, which process data from Alpha-bank csv format to Homebank's csv
- - python script, which process data from Money Iq App (for iPhone) database to Homebank's csv
-
