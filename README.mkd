@@ -14,9 +14,9 @@ Free, easy, personal accounting for everyone <http://homebank.free.fr/>
 
 **09.04.2012** added:
 #### From <https://github.com/profiler/HB_Convert> ####
-*   Universal Homebank(4.3) CSV import converter
->   From [Rabobank](https://www.rabobank.com) (Netherlands) CSV format to Homebank's CSV  
->   From [SNS Bank](https://www.snsbank.nl) (Netherlands) CSV format to Homebank's CSV
+*   Universal Homebank(4.3) CSV import converter  
+    From [Rabobank](https://www.rabobank.com) (Netherlands) CSV format to Homebank's CSV  
+    From [SNS Bank](https://www.snsbank.nl) (Netherlands) CSV format to Homebank's CSV  
   
 **14.08.2011** added:
 #### From <https://github.com/denisoid/homebank_import_scripts> ####
