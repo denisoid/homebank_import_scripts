@@ -1,7 +1,7 @@
 # HomeBank Import Scripts #
 Free, easy, personal accounting for everyone <http://homebank.free.fr/>
-![HomeBank](http://homebank.free.fr/images/web_title.png "Logo HomeBank")
-![ScreenShot HomeBank](http://homebank.free.fr/images/homebank_all.jpg "ScreenShot HomeBank")
+![HomeBank](http://homebank.free.fr/img/web_title.png "Logo HomeBank")
+![ScreenShot HomeBank](http://homebank.free.fr/img/homebank_all.jpg "ScreenShot HomeBank")
 
 ## Change Log ##
 **13.01.2013** added:
