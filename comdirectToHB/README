@@ -1,0 +1,11 @@
+** How to use **
+Step1: export the CSV from Comdirect or Sparkasse
+Step2: open it in LibreOffice and remove the header
+Step3: execute the php file: "php run.php <input>.csv <export>.csv <financial_inst> <type>"
+valid financial_inst are:
+    - sparkasse
+    - comdirect
+
+valid types are:
+    - giro
+    - visa
