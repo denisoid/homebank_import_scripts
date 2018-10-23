@@ -4,6 +4,12 @@ Free, easy, personal accounting for everyone <http://homebank.free.fr/>
 ![ScreenShot HomeBank](http://homebank.free.fr/img/homebank_all.jpg "ScreenShot HomeBank")
 
 ## Change Log ##
+**16.09.2018** added:
+#### From <https://gitlab.alexwaresystems.de/alexanderkehr/comdirectToHB> ####
+*   PHP Script (with a little manual help from LibreOffice)  
+    From [Sparkasse Vorderpfalz](http://sparkasse-vorderpfalz.de/) (Germany) CSV format to Homebank's CSV  
+    From [Comdirect](http://comdirect.de/) (Germany) CSV format to Homebank's CSV  
+
 **13.01.2013** added:
 #### From <https://github.com/fquinto> ####
 *   Python script from Account Manager extracts from CSB (Consejo Superior Bancario) norm "Cuaderno AEB43" or "Q43" (Spain) format to Homebank's CSV. Tested q43 files from [Caixa d'Enginyers](https://www.caixa-enginyers.com). [More info in Spanish.](http://www.tesoreria.com/oldweb/index.php?option=com_content&view=article&id=128:la-norma-43-del-consejo-superior-bancario-csb&catid=59:normativa-nacional-e-internacional&Itemid=90)
